@@ -8,6 +8,7 @@ export interface IUser extends Document {
   confirmPassword: string;
   phone: string;
   role: string;
+  isAdminApproved: boolean;
   createAt?: Date;
   updateAt?: Date;
 }
@@ -56,6 +57,10 @@ const userSchema = new Schema(
         values: ['teacher', 'driver'],
         message: 'role only be teacher or driver',
       },
+    },
+    isAdminApproved: {
+      type: Boolean,
+      default: false,
     },
   },
   {
