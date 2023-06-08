@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import User, { IUser } from '../model/userModel';
-import { Dirent } from 'fs';
 
 export const allRequestedTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
