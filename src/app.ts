@@ -3,6 +3,7 @@ import morgan from 'morgan';
 
 import userRouter from './routes/userRouter';
 import { globalErrorHandler } from './controller/errorController';
+import { AppError } from './utils/appError';
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use('/api/v1/users', userRouter);
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
-  next('Route not founded');
+  next(new AppError('Route not founed!', 404));
 });
 
 app.use(globalErrorHandler);
