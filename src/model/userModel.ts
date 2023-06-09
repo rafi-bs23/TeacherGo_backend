@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 export interface IUser extends Document {
   id: string;
@@ -11,6 +12,7 @@ export interface IUser extends Document {
   isAdminApproved: boolean;
   createAt?: Date;
   updateAt?: Date;
+  comparePassword(candidPassword: string, hashPassword: string): boolean;
 }
 
 const isPasswordAndConfirmPasswordIsSame = function (
@@ -67,6 +69,19 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password!, 12);
+  next();
+});
+
+userSchema.methods.comparePassword = async function (
+  candidPassword: string,
+  hashPassword: string
+) {
+  return await bcrypt.compare(candidPassword, hashPassword);
+};
 
 const User = mongoose.model<IUser>('User', userSchema);
 

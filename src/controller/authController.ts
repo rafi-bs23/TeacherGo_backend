@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import User, { IUser } from '../model/userModel';
+import { AppError } from '../utils/appError';
+import { signToken } from '../utils/signToken';
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -14,13 +16,27 @@ export const signup = catchAsync(
       role,
     });
     await user.save();
-    res.send('signup user');
+    const token: string = signToken(user.id);
+    res.status(201).json({
+      status: 'success',
+      token,
+    });
   }
 );
 
 export const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.send('login');
+    const { email, password } = req.body;
+    const user: IUser | null = await User.findOne({ email });
+
+    if (!user || !(await user.comparePassword(password, user.password)))
+      return next(new AppError('User not Founded', 404));
+
+    const token: string = signToken(user.id);
+    res.status(200).json({
+      status: 'success',
+      token,
+    });
   }
 );
 
