@@ -5,8 +5,6 @@ import * as adminController from '../controller/adminController';
 
 const router = express.Router();
 
-
-
 router.get(
   '/teachers-request',
   authController.protect,
@@ -19,7 +17,7 @@ router.get(
 );
 
 router.patch(
-  '/approve',
+  '/approve/:id',
   authController.protect,
   adminController.approveDriverAndTeacher
 );

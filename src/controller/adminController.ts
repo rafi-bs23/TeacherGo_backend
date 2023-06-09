@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import User, { IUser } from '../model/userModel';
+import { AppError } from '../utils/appError';
 
 export const allRequestedTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -32,6 +33,15 @@ export const allRequestedDriver = catchAsync(
 
 export const approveDriverAndTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.send('approve teacer and driver request');
+    const user: IUser | null = await User.findOne({ _id: req.params.id });
+    if (!user) return next(new AppError('User Not Founded', 404));
+
+    user.isAdminApproved = true;
+    await user.save();
+
+    res.status(200).json({
+      status: 'success',
+      message: 'User accepted',
+    });
   }
 );
