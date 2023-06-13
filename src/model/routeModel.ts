@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-interface IRoute {
+export interface IRoute extends Document {
   name: string;
   startFrom: string;
   endTo: string;
@@ -13,7 +13,7 @@ const routeSchema = new Schema({
   },
   startFrom: {
     type: String,
-    required: [true, 'Please provide start location of a route.'],
+    default: '23.801454005206896,90.4261700640749',
   },
   endTo: {
     type: String,

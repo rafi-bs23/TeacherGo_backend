@@ -6,7 +6,7 @@ import { signToken } from '../utils/signToken';
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id, name, email, password, phone, role } = req.body;
+    const { id, name, email, password, phone, role, routeId  } = req.body;
     const user: IUser = new User({
       id,
       name,
@@ -14,6 +14,7 @@ export const signup = catchAsync(
       password,
       phone,
       role,
+      routeId,
     });
     await user.save();
     const token: string = signToken(user.id);

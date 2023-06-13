@@ -4,14 +4,15 @@ import User, { IUser } from '../model/userModel';
 
 export const getAllTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const user: IUser[] = await User.find({
+    const teachers: IUser[] = await User.find({
       role: 'teacher',
       isAdminApproved: true,
     });
 
     res.status(200).json({
       status: 'success',
-      Teachers: user,
+      result: teachers.length,
+      teachers,
     });
   }
 );
