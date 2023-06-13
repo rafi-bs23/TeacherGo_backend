@@ -9,7 +9,10 @@ export interface IUser extends Document {
   confirmPassword: string;
   phone: string;
   role: string;
+  routeId: string;
   isAdminApproved: boolean;
+  isTeacherWillGo: boolean;
+  isDriverOk: boolean;
   createAt?: Date;
   updateAt?: Date;
   comparePassword(candidPassword: string, hashPassword: string): boolean;
@@ -60,9 +63,22 @@ const userSchema = new Schema(
         message: 'role only be teacher or driver',
       },
     },
+
+    routeId: {
+      type: String,
+      required: [true, 'A user must have a route id'],
+    },
     isAdminApproved: {
       type: Boolean,
       default: false,
+    },
+    isTeacherWillGo: {
+      type: Boolean,
+      default: true,
+    },
+    isDriverOk: {
+      type: Boolean,
+      default: true,
     },
   },
   {
