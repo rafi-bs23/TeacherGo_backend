@@ -2,14 +2,14 @@ import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface IUser extends Document {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
   phone: string;
   role: string;
-  routeId: string;
+  routeId?: string;
   isAdminApproved: boolean;
   isTeacherWillGo: boolean;
   isDriverOk: boolean;
@@ -29,7 +29,6 @@ const userSchema = new Schema(
   {
     id: {
       type: String,
-      required: [true, 'Please provide your id'],
       unique: true,
     },
     name: {
@@ -66,7 +65,6 @@ const userSchema = new Schema(
 
     routeId: {
       type: String,
-      required: [true, 'A user must have a route id'],
     },
     isAdminApproved: {
       type: Boolean,

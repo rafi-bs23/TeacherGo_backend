@@ -6,7 +6,7 @@ import { signToken } from '../utils/signToken';
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id, name, email, password, phone, role, routeId  } = req.body;
+    const { name, email, id, phone, routeId, password, role } = req.body;
     const user: IUser = new User({
       id,
       name,
@@ -17,7 +17,7 @@ export const signup = catchAsync(
       routeId,
     });
     await user.save();
-    const token: string = signToken(user.id);
+    const token: string = signToken(user.email);
     res.status(201).json({
       status: 'success',
       token,
@@ -33,7 +33,7 @@ export const login = catchAsync(
     if (!user || !(await user.comparePassword(password, user.password)))
       return next(new AppError('User not Founded', 404));
 
-    const token: string = signToken(user.id);
+    const token: string = signToken(user.email);
     res.status(200).json({
       status: 'success',
       token,
