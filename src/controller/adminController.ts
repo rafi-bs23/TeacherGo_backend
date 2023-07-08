@@ -45,3 +45,14 @@ export const approveDriverAndTeacher = catchAsync(
     });
   }
 );
+
+export const deleteUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user: IUser | null = await User.findByIdAndRemove(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      message: 'user deleteed successfully.',
+      user,
+    });
+  }
+);

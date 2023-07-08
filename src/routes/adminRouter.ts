@@ -22,4 +22,10 @@ router.patch(
   adminController.approveDriverAndTeacher
 );
 
+router.delete(
+  '/remove/:id',
+  authController.protect,
+  adminController.deleteUser
+);
+
 export default router;
