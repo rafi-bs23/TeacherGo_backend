@@ -52,11 +52,21 @@ export const protect = catchAsync(
 export const updateUserInfo = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, phone } = req.body;
-    const user = User.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { _id: req.params.id },
       { name, phone },
       { new: true }
     );
+    res.status(200).json({
+      status: 'success',
+      user,
+    });
+  }
+);
+
+export const getUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await User.findById(req.params.id);
     res.status(200).json({
       status: 'success',
       user,

@@ -20,7 +20,7 @@ export const getAllDrivers = catchAsync(
 export const updateDriverStatus = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { isDriverOk } = req.body;
-    const statusUpdate = User.findOneAndUpdate(
+    const statusUpdate = await User.findOneAndUpdate(
       { _id: req.params.id },
       { isDriverOk },
       { new: true }
