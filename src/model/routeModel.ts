@@ -1,9 +1,10 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Types, mongo } from 'mongoose';
 
 export interface IRoute extends Document {
   name: string;
   startFrom: string;
   endTo: string;
+  driver: Types.ObjectId;
 }
 
 const routeSchema = new Schema({
@@ -18,6 +19,11 @@ const routeSchema = new Schema({
   endTo: {
     type: String,
     required: [true, 'Please provide end locaton of a route'],
+  },
+  driver: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Driver',
+    require: [true, 'A route must need a Driver.'],
   },
 });
 

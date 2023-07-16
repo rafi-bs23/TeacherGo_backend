@@ -4,10 +4,11 @@ import RouteModel, { IRoute } from '../model/routeModel';
 
 export const createRoute = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, endTo } = req.body;
+    const { name, endTo, driver } = req.body;
     const route: IRoute = new RouteModel({
       name,
       endTo,
+      driver,
     });
     await route.save();
     res.status(201).json({
@@ -26,4 +27,8 @@ export const getAllRoute = catchAsync(
       routes,
     });
   }
+);
+
+export const getAllDriverAndTeacher = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {}
 );
