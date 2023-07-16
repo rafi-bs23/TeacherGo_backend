@@ -12,7 +12,7 @@ router.get('/teachers', teacherController.getAllTeacher);
 router.get('/drivers', driverController.getAllDrivers);
 
 router.patch('/update-user-info/:id', authController.updateUserInfo);
-router.get('get-user/:id', authController.getUser);
+router.get('/get-user/:id', authController.getUser);
 
 router.patch('/teacher/:id', teacherController.updateTeacherStatus);
 router.patch('/driver/:id', driverController.updateDriverStatus);
