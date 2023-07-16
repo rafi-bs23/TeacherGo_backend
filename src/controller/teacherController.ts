@@ -16,3 +16,18 @@ export const getAllTeacher = catchAsync(
     });
   }
 );
+
+export const updateTeacherStatus = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { isTeacherWillGo } = req.body;
+    const statusUpdate = User.findOneAndUpdate(
+      { _id: req.params.id },
+      { isTeacherWillGo },
+      { new: true }
+    );
+    res.status(200).json({
+      status: 'success',
+      statusUpdate,
+    });
+  }
+);

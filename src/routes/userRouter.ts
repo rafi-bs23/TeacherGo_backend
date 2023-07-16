@@ -10,4 +10,6 @@ router.post('/signup', authController.protect, authController.signup);
 router.post('/login', authController.protect, authController.login);
 router.get('/teachers', teacherController.getAllTeacher);
 router.get('/drivers', driverController.getAllDrivers);
+
+router.patch('/teacher/:id', teacherController.updateTeacherStatus);
 export default router;
