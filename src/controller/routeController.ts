@@ -41,7 +41,7 @@ export const updateRoute = catchAsync(
 
 export const getAllRoute = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const routes: IRoute[] | null = await RouteModel.find();
+    const routes: IRoute[] | null = await RouteModel.find().populate('driver');
     res.status(200).json({
       status: 'success',
       result: routes ? routes.length : 0,
