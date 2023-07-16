@@ -48,3 +48,18 @@ export const protect = catchAsync(
     next();
   }
 );
+
+export const updateUserInfo = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { name, phone } = req.body;
+    const user = User.findOneAndUpdate(
+      { _id: req.params.id },
+      { name, phone },
+      { new: true }
+    );
+    res.status(200).json({
+      status: 'success',
+      user,
+    });
+  }
+);

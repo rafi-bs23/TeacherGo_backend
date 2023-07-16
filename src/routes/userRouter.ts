@@ -11,6 +11,8 @@ router.post('/login', authController.protect, authController.login);
 router.get('/teachers', teacherController.getAllTeacher);
 router.get('/drivers', driverController.getAllDrivers);
 
+router.patch('update-user-info/:id', authController.updateUserInfo);
+
 router.patch('/teacher/:id', teacherController.updateTeacherStatus);
 router.patch('/driver/:id', driverController.updateDriverStatus);
 export default router;
