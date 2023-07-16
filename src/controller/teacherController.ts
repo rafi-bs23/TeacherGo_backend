@@ -20,7 +20,8 @@ export const getAllTeacher = catchAsync(
 export const updateTeacherStatus = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { isTeacherWillGo } = req.body;
-    const statusUpdate = User.findOneAndUpdate(
+    console.log(isTeacherWillGo);
+    const statusUpdate = await User.findOneAndUpdate(
       { _id: req.params.id },
       { isTeacherWillGo },
       { new: true }

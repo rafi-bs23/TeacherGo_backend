@@ -13,7 +13,7 @@ export const createRoute = catchAsync(
     });
     await route.save();
     res.status(201).json({
-      status: 'success',
+      status: 'success1',
       route,
     });
   }
@@ -33,7 +33,7 @@ export const updateRoute = catchAsync(
     }
 
     res.status(200).json({
-      status: 'success',
+      status: 'success2',
       route,
     });
   }
