@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document, ObjectId } from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
 interface IDriver extends Document {
-  routeId?: ObjectId;
+  routeId?: Types.ObjectId;
   isDriverOk: boolean;
 }
 

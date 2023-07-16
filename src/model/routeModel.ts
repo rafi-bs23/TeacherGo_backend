@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types, mongo } from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
 
 export interface IRoute extends Document {
   name: string;
@@ -22,7 +22,7 @@ const routeSchema = new Schema({
   },
   driver: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Driver',
+    ref: 'User',
     require: [true, 'A route must need a Driver.'],
   },
 });
