@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import RouteModel, { IRoute } from '../model/routeModel';
 import { AppError } from '../utils/appError';
-import User from '../model/userModel';
+import User, { IUser } from '../model/userModel';
 
 export const createRoute = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -70,4 +70,17 @@ export const getAllRoute = catchAsync(
 
 export const getAllDriverAndTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {}
+);
+
+export const getAllTeacherOnRoute = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const teachers: IUser[] | null = await User.find({
+      routeId: req.params.routeId,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      teachers,
+    });
+  }
 );
