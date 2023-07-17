@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import User, { IUser } from '../model/userModel';
+import RouteModel from '../model/routeModel';
 
 export const getAllTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -33,10 +34,9 @@ export const updateTeacherStatus = catchAsync(
   }
 );
 
-//dummy route
 export const getMyDriver = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const driver = await User.findOne({ endTo: req.params.endTo });
+    const driver = await RouteModel.findOne({ endTo: req.params.endTo });
     res.status(200).json({
       status: 'success',
       driver,
