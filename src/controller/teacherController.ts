@@ -32,3 +32,13 @@ export const updateTeacherStatus = catchAsync(
     });
   }
 );
+
+export const getMyDriver = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const driver = await User.findOne({ endTo: req.body.endTo });
+    res.status(200).json({
+      status: 'success',
+      driver,
+    });
+  }
+);
