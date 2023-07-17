@@ -2,15 +2,26 @@ import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../utils/catchAsync';
 import RouteModel, { IRoute } from '../model/routeModel';
 import { AppError } from '../utils/appError';
+import User from '../model/userModel';
 
 export const createRoute = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, endTo, driver } = req.body;
+
+    const userDriver = await User.findById(driver);
+    if (!userDriver) {
+      return next(new AppError('driver not founded', 404));
+    }
+    userDriver.routeId = `${name}-${endTo}`;
+    const driverName = userDriver.name;
+    await userDriver.save();
     const route: IRoute = new RouteModel({
       name,
       endTo,
       driver,
+      driverName,
     });
+
     await route.save();
     res.status(201).json({
       status: 'success1',

@@ -5,6 +5,7 @@ export interface IRoute extends Document {
   startFrom: string;
   endTo: string;
   driver: Types.ObjectId;
+  driverName: string;
 }
 
 const routeSchema = new Schema({
@@ -24,6 +25,10 @@ const routeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     require: [true, 'A route must need a Driver.'],
+  },
+  driverName: {
+    type: String,
+    required: [true, 'A Route must have a name'],
   },
 });
 
