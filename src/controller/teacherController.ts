@@ -36,7 +36,8 @@ export const updateTeacherStatus = catchAsync(
 
 export const getMyDriver = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const driver = await RouteModel.findOne({ endTo: req.params.endTo });
+    const route = await RouteModel.findOne({ endTo: req.params.endTo });
+    const driver = await User.findById(route?.driver);
     res.status(200).json({
       status: 'success',
       driver,
