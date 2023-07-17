@@ -33,9 +33,16 @@ export const createRoute = catchAsync(
 export const updateRoute = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { endTo, driver } = req.body;
+
+    const userDriver = await User.findById(driver);
+    if (!userDriver) {
+      return next(new AppError('driver not founded', 404));
+    }
+    const driverName = userDriver.name;
+
     const route: IRoute | null = await RouteModel.findOneAndUpdate(
       { _id: req.params.id },
-      { endTo, driver },
+      { endTo, driver, driverName },
       { new: true } // Option to return the updated document
     );
 
